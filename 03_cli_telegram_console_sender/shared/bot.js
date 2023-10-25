@@ -1,8 +1,10 @@
 import TelegramBot from "node-telegram-bot-api";
 
-const token = "6700874451:AAGB-NGfLR6ezVJnZdQh8lSdhFFh1igcfWQ";
-const chatId = 429906165;
+const token = "";// Input tour bot token
+const chatId = 0; // Input tour chatID
 
+console.log(token, chatId);
+process.exit(1);
 export function telegramBot(message, method) {
     console.log(token);
 
