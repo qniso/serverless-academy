@@ -29,7 +29,7 @@ export function telegramBot(){
             }, 10800000) // 3 hours in ms
         }
 
-        if(message ==  "at intervals of 6 hours"){
+        if(message.text ==  "at intervals of 6 hours"){
             generateMessage(bot, weather);
 
             setInterval(()=> {
