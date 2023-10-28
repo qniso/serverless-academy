@@ -2,10 +2,16 @@ import TelegramBot from "node-telegram-bot-api";
 import { getWeather } from "./index.js";
 
 const token = ""; // Your token
-const chatId = 0; // Your chat id
 
-export function telegramBot(){
-    const bot = new TelegramBot(token, {polling: true});
+const bot = new TelegramBot(token, {polling: true});
+
+export function startTelegramBot(){
+    bot.onText(/\/start/, (message)=> {
+        telegramBot(message.chat.id);
+    })
+}
+
+export function telegramBot(chatId){
     const weather = getWeather();
 
     bot.sendMessage(chatId, "Press button to see weather forecast in Dnipro", {
@@ -15,31 +21,31 @@ export function telegramBot(){
     });
 
     bot.on("text", message => {
-        bot.sendMessage(chatId, "Bot is checking weather forecast", {
+        bot.sendMessage(message.chat.id, "Bot is checking weather forecast", {
                 reply_markup: {
                     keyboard: [["at intervals of 3 hours"], ["at intervals of 6 hours"]]
                 }
         })
 
         if(message.text == "at intervals of 3 hours"){
-            generateMessage(bot, weather);
+            generateMessage(bot, weather, chatId);
 
             setInterval(()=> {
-                generateMessage(bot, weather);
+                generateMessage(bot, weather, chatId);
             }, 10800000) // 3 hours in ms
         }
 
         if(message.text ==  "at intervals of 6 hours"){
-            generateMessage(bot, weather);
+            generateMessage(bot, weather, chatId);
 
             setInterval(()=> {
-                generateMessage(bot, weather);
+                generateMessage(bot, weather, chatId);
             }, 21600000) //6 hours in ms
         }
     })
 }
 
-function generateMessage(bot, weather){
+function generateMessage(bot, weather, chatId){
     weather.then(result => {
         const weatherForecast = result.list;
 

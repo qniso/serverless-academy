@@ -1,3 +1,10 @@
-import {telegramBot} from "./shared/index.js";
+import { startTelegramBot} from "./shared/index.js";
 
-telegramBot();
+/**
+ * @description
+ * Bot starts work when receive command /start
+ * 
+ * after that he gets user's chat_id and can work with it
+ */
+
+startTelegramBot();
