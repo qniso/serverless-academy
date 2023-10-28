@@ -11,7 +11,7 @@ export function startTelegramBot(){
     })
 }
 
-export function telegramBot(chatId){
+function telegramBot(chatId){
     const weather = getWeather();
 
     bot.sendMessage(chatId, "Press button to see weather forecast in Dnipro", {
